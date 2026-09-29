@@ -1,0 +1,1158 @@
+/* =========================================================
+   OILAVIY XARAJATLAR TRACKER - MOBILE APP STILLARI (CSS)
+   Mobil qurilmalar uchun moslashtirilgan, pastki navigatsiyali dizayn
+   ========================================================= */
+
+:root {
+  /* Asosiy ranglar */
+  --bg-app: #f8fafc;
+  --bg-card: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --text-light: #94a3b8;
+  --border-color: #e2e8f0;
+  --border-focus: #3b82f6;
+
+  /* Brend va signal ranglari */
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-light: #eff6ff;
+  --danger: #ef4444;
+  --danger-light: #fef2f2;
+  --success: #10b981;
+  --success-light: #ecfdf5;
+  --warning: #f59e0b;
+  --warning-light: #fffbeb;
+
+  /* Kategoriya ranglari */
+  --cat-talim: #8b5cf6;
+  --cat-talim-bg: #f5f3ff;
+  --cat-transport: #0284c7;
+  --cat-transport-bg: #f0f9ff;
+  --cat-kredit: #d97706;
+  --cat-kredit-bg: #fffbeb;
+  --cat-oziq-ovqat: #059669;
+  --cat-oziq-ovqat-bg: #ecfdf5;
+  --cat-kommunal: #0891b2;
+  --cat-kommunal-bg: #ecfeff;
+  --cat-boshqa: #64748b;
+  --cat-boshqa-bg: #f1f5f9;
+
+  /* O'lchamlar va radiuslar */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 14px rgba(15, 23, 42, 0.06);
+  --shadow-lg: 0 10px 30px rgba(15, 23, 42, 0.1);
+  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --bottom-nav-height: 64px;
+}
+
+/* Umumiy reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  line-height: 1.45;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding-bottom: calc(var(--bottom-nav-height) + 24px + env(safe-area-inset-bottom, 0px));
+}
+
+/* Mobil ilova konteyneri (Desktopda markazlashgan telefon o'lchami, mobilda 100%) */
+.app-container {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 16px 14px;
+}
+
+/* ---------------------------------------------------------
+   YUQORI NAVIGATSIYA PANEL (TOP BAR)
+   --------------------------------------------------------- */
+.app-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 2px 16px 2px;
+  margin-bottom: 8px;
+}
+
+.brand-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--primary);
+  background-color: var(--primary-light);
+  padding: 3px 8px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.brand-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.5px;
+}
+
+.top-bar-action {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 7px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.top-bar-action:active {
+  transform: scale(0.96);
+  background-color: #f1f5f9;
+}
+
+/* ---------------------------------------------------------
+   OYMA-OY SARHISOB VA NAVIGATSIYA PANELI (MONTH SELECTOR)
+   --------------------------------------------------------- */
+.month-selector-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-card);
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 14px;
+}
+
+.month-nav-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  font-size: 0.9rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.month-nav-btn:active {
+  transform: scale(0.92);
+  background-color: #e2e8f0;
+}
+
+.month-display {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.month-icon {
+  font-size: 1.1rem;
+}
+
+.month-name {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.2px;
+}
+
+.month-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  background-color: var(--primary-light);
+  color: var(--primary);
+  padding: 2px 7px;
+  border-radius: 12px;
+  text-transform: uppercase;
+}
+
+/* ---------------------------------------------------------
+   SAHIFALAR (TAB PAGES) MANTIQI
+   --------------------------------------------------------- */
+.app-tab-page {
+  display: none;
+}
+
+.app-tab-page.active {
+  display: block;
+  animation: tabFadeIn 0.22s ease-out;
+}
+
+@keyframes tabFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------------------------------------------------------
+   SAHIFA 1: ASOSIY PANEL (DASHBOARD)
+   --------------------------------------------------------- */
+/* 3 ta asosiy karta */
+.budget-overview-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.summary-card {
+  background: var(--bg-card);
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+}
+
+.summary-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.summary-card-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+}
+
+.btn-edit-budget {
+  background-color: var(--primary-light);
+  color: var(--primary);
+  border: none;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-quick-income {
+  background-color: var(--success-light);
+  color: var(--success);
+  border: 1px solid #a7f3d0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-quick-income:active {
+  background-color: #a7f3d0;
+  transform: scale(0.95);
+}
+
+.badge-count {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 2px 7px;
+  background-color: #f1f5f9;
+  color: var(--text-muted);
+  border-radius: 6px;
+}
+
+.badge-status {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 6px;
+  text-transform: uppercase;
+}
+
+.status-safe { background-color: var(--success-light); color: var(--success); }
+.status-warning { background-color: var(--warning-light); color: #b45309; }
+.status-danger { background-color: var(--danger-light); color: var(--danger); }
+
+.summary-card-value {
+  font-size: 1.45rem;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+  color: var(--text-main);
+  line-height: 1.2;
+}
+
+.summary-card-value.text-danger { color: #dc2626; }
+.summary-card-value.text-success { color: #059669; }
+
+.summary-card-footer {
+  font-size: 0.72rem;
+  color: var(--text-light);
+  margin-top: 3px;
+}
+
+.budget-card { border-left: 4px solid var(--primary); }
+.expense-card { border-left: 4px solid var(--danger); }
+.balance-card { border-left: 4px solid var(--success); }
+.balance-card.danger-balance { border-left-color: var(--danger); background: #fef2f2; }
+
+/* Budjet sarflanish ko'rsatkichi (Progress Bar) */
+.budget-progress-container {
+  background: var(--bg-card);
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 18px;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.progress-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.progress-value {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.progress-track {
+  width: 100%;
+  height: 8px;
+  background-color: #e2e8f0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981, #059669);
+  border-radius: 10px;
+  transition: width 0.4s ease, background 0.3s ease;
+}
+
+.progress-fill.fill-warning {
+  background: linear-gradient(90deg, #f59e0b, #d97706);
+}
+
+.progress-fill.fill-danger {
+  background: linear-gradient(90deg, #ef4444, #dc2626);
+}
+
+/* Sarlavhalar */
+.section-heading {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.section-heading h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+/* Kategoriya kartalari paneli */
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.cat-card {
+  background: var(--bg-card);
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.cat-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.cat-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.cat-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.cat-amount {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.cat-percent {
+  font-size: 0.7rem;
+  color: var(--text-light);
+  margin-top: 1px;
+}
+
+/* So'nggi xarajatlar qisqa bloki */
+.recent-preview-card {
+  background: var(--bg-card);
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.recent-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.recent-header h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.btn-see-all {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.recent-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.recent-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.recent-item:last-child {
+  border-bottom: none;
+}
+
+.recent-item-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.recent-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.recent-cat {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.recent-amount {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+/* ---------------------------------------------------------
+   SAHIFA 2: XARAJAT QO'SHISH FORMASI (MOBIL MOSLASHUVCHAN)
+   --------------------------------------------------------- */
+.form-page-card {
+  background: var(--bg-card);
+  padding: 22px 18px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Chiqim / Kirim almashtirish tugmasi */
+.transaction-type-toggle {
+  display: flex;
+  background-color: var(--bg-app);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 4px;
+  margin-bottom: 18px;
+  gap: 4px;
+}
+
+.type-toggle-btn {
+  flex: 1;
+  padding: 11px 8px;
+  border: none;
+  background: transparent;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.type-toggle-btn.active[data-type="expense"] {
+  background-color: #ffffff;
+  color: var(--danger);
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.15);
+}
+
+.type-toggle-btn.active[data-type="income"] {
+  background-color: #ffffff;
+  color: var(--success);
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.18);
+}
+
+/* Ota-onalar uchun tezkor shablonlar */
+.quick-templates {
+  margin-bottom: 16px;
+  padding: 10px 12px;
+  background-color: var(--bg-app);
+  border-radius: var(--radius-md);
+  border: 1px dashed var(--border-color);
+}
+
+.templates-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.template-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.template-chip {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  padding: 6px 11px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.template-chip:active {
+  background-color: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: scale(0.94);
+}
+
+.form-page-header {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.form-page-header h2 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.form-page-header p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.mobile-expense-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 0.95rem;
+  color: var(--text-main);
+  background-color: var(--bg-app);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  outline: none;
+  transition: var(--transition);
+  font-family: inherit;
+}
+
+.form-control:focus {
+  background-color: #ffffff;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+/* Katta summa kiritish maydoni */
+.amount-group {
+  margin-bottom: 4px;
+}
+
+.input-currency-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.amount-input {
+  font-size: 1.6rem;
+  font-weight: 800;
+  padding: 14px 70px 14px 16px;
+  letter-spacing: -0.5px;
+  color: var(--primary);
+  background-color: #ffffff;
+  border: 2px solid #cbd5e1;
+}
+
+.amount-input:focus {
+  border-color: var(--primary);
+}
+
+.currency-tag {
+  position: absolute;
+  right: 16px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.select-control {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 40px;
+}
+
+.btn-primary-large {
+  width: 100%;
+  padding: 15px;
+  background-color: var(--primary);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+  transition: var(--transition);
+  margin-top: 8px;
+}
+
+.btn-primary-large:active {
+  transform: scale(0.98);
+  background-color: var(--primary-hover);
+}
+
+.btn-primary-large.btn-income-mode {
+  background-color: var(--success);
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+}
+
+.btn-primary-large.btn-income-mode:active {
+  background-color: #059669;
+}
+
+/* ---------------------------------------------------------
+   SAHIFA 3: XARAJATLAR TARIXI VA RO'YXATI
+   --------------------------------------------------------- */
+.history-page-card {
+  background: var(--bg-card);
+  padding: 18px 14px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.history-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+}
+
+.history-page-header h2 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.history-sub {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.btn-clear-all {
+  background: none;
+  border: 1px solid #fecaca;
+  color: var(--danger);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-clear-all:active {
+  background-color: var(--danger-light);
+}
+
+/* Kategoriya filtrlari (Gorizontal skroll) */
+.category-filters {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  margin-bottom: 14px;
+  scrollbar-width: none; /* Firefox */
+}
+
+.category-filters::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+.filter-chip {
+  padding: 6px 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border-radius: 20px;
+  background-color: var(--bg-app);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.filter-chip.active {
+  background-color: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+}
+
+.filter-chip.filter-expense.active {
+  background-color: var(--danger);
+  border-color: var(--danger);
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.25);
+}
+
+.filter-chip.filter-income.active {
+  background-color: var(--success);
+  border-color: var(--success);
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
+}
+
+/* Xarajatlar va Kirimlar ro'yxati */
+.expense-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.expense-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  background-color: var(--bg-app);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  transition: var(--transition);
+}
+
+.expense-item.item-income {
+  border-left: 3px solid var(--success);
+}
+
+.expense-item:active {
+  background-color: #ffffff;
+}
+
+.item-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.item-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.item-badge-income {
+  background-color: var(--success-light);
+  color: var(--success);
+  border: 1px solid #a7f3d0;
+}
+
+.item-details {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.item-title {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-date {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 1px;
+}
+
+.item-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.item-amount {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-main);
+  white-space: nowrap;
+}
+
+.item-amount-income {
+  color: #059669 !important;
+  font-weight: 800;
+}
+
+.btn-delete {
+  background-color: transparent;
+  color: var(--text-light);
+  border: none;
+  padding: 6px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.btn-delete:active, .btn-delete:hover {
+  color: var(--danger);
+  background-color: var(--danger-light);
+}
+
+/* Bo'sh holat */
+.empty-state {
+  text-align: center;
+  padding: 36px 14px;
+  color: var(--text-muted);
+}
+
+.empty-state-icon {
+  font-size: 2.5rem;
+  margin-bottom: 6px;
+  color: var(--text-light);
+}
+
+.btn-add-shortcut {
+  margin-top: 12px;
+  background-color: var(--primary-light);
+  color: var(--primary);
+  border: 1px solid #bfdbfe;
+  padding: 8px 16px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+/* ---------------------------------------------------------
+   EKRAN PASTIDAGI MOBIL APP NAVIGATSIYA (BOTTOM NAV)
+   --------------------------------------------------------- */
+.mobile-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--bottom-nav-height);
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 999;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  box-shadow: 0 -4px 18px rgba(0, 0, 0, 0.04);
+}
+
+/* Desktopda pastki panelni ham mobil eniga moslash */
+@media (min-width: 501px) {
+  .mobile-bottom-nav {
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 500px;
+    border-radius: 24px 24px 0 0;
+    border-left: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+  }
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  width: 33.33%;
+  height: 100%;
+  transition: var(--transition);
+  gap: 3px;
+}
+
+.nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.nav-text {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+/* Faol tugma (Active state) */
+.nav-item.active {
+  color: var(--primary);
+}
+
+.nav-item.active .nav-icon {
+  transform: translateY(-2px);
+}
+
+.nav-item.active .nav-text {
+  font-weight: 800;
+}
+
+/* Markaziy tugma (Ajralib turuvchi Qo'shish tugmasi) */
+.nav-item-center {
+  position: relative;
+}
+
+.center-btn-bubble {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  border-radius: 50%;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+  margin-top: -16px;
+  transition: var(--transition);
+}
+
+.nav-item-center:active .center-btn-bubble {
+  transform: scale(0.92);
+}
+
+.nav-item-center.active .center-btn-bubble {
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.5);
+  transform: translateY(-2px);
+}
+
+/* ---------------------------------------------------------
+   MODAL VA TOAST XABARLARI
+   --------------------------------------------------------- */
+.budget-modal {
+  border: none;
+  border-radius: var(--radius-lg);
+  padding: 0;
+  background: transparent;
+  max-width: 420px;
+  width: 90%;
+  margin: auto;
+}
+
+.budget-modal::backdrop {
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.modal-card {
+  background: var(--bg-card);
+  padding: 22px 18px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.modal-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.btn-modal-close {
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--text-light);
+  cursor: pointer;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.btn-cancel {
+  padding: 9px 16px;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.btn-submit {
+  padding: 9px 18px;
+  background-color: var(--primary);
+  color: #ffffff;
+  border: none;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+/* Toast xabarnomasi */
+.toast-message {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-60px);
+  background-color: #0f172a;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  z-index: 2000;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.toast-message.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* Kategoriya ranglari klasslari */
+.cat-badge-talim { background-color: var(--cat-talim-bg); color: var(--cat-talim); border: 1px solid #ddd6fe; }
+.cat-badge-transport { background-color: var(--cat-transport-bg); color: var(--cat-transport); border: 1px solid #bae6fd; }
+.cat-badge-kredit { background-color: var(--cat-kredit-bg); color: var(--cat-kredit); border: 1px solid #fde68a; }
+.cat-badge-oziq-ovqat { background-color: var(--cat-oziq-ovqat-bg); color: var(--cat-oziq-ovqat); border: 1px solid #a7f3d0; }
+.cat-badge-kommunal { background-color: var(--cat-kommunal-bg); color: var(--cat-kommunal); border: 1px solid #a5f3fc; }
+.cat-badge-boshqa { background-color: var(--cat-boshqa-bg); color: var(--cat-boshqa); border: 1px solid #e2e8f0; }
+
+.dot-talim { background-color: var(--cat-talim); }
+.dot-transport { background-color: var(--cat-transport); }
+.dot-kredit { background-color: var(--cat-kredit); }
+.dot-oziq-ovqat { background-color: var(--cat-oziq-ovqat); }
+.dot-kommunal { background-color: var(--cat-kommunal); }
+.dot-boshqa { background-color: var(--cat-boshqa); }

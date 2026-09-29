@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Oilaviy Xarajatlar Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ASOSIY MOBIL ILOVA KONTEYNERI -->
+  <div class="app-container">
+
+    <!-- YUQORI SARLAVHA (TOP BAR) -->
+    <header class="app-top-bar">
+      <div class="top-bar-brand">
+        <span class="brand-badge">Oila Budjeti</span>
+        <h1 class="brand-title">Xarajatlar Tracker</h1>
+      </div>
+      <button type="button" id="openBudgetModalBtn" class="top-bar-action" title="Budjetni belgilash">
+        ⚙️ Budjet
+      </button>
+    </header>
+
+    <!-- OYMA-OY SARHISOB VA NAVIGATSIYA PANELI -->
+    <div class="month-selector-bar">
+      <button type="button" id="prevMonthBtn" class="month-nav-btn" aria-label="Oldingi oy">
+        ◀
+      </button>
+      <div class="month-display" id="monthDisplay">
+        <span class="month-icon">📅</span>
+        <span class="month-name" id="currentMonthName">Sentabr 2026</span>
+        <span class="month-badge" id="currentMonthBadge">Joriy oy</span>
+      </div>
+      <button type="button" id="nextMonthBtn" class="month-nav-btn" aria-label="Keyingi oy">
+        ▶
+      </button>
+    </div>
+
+    <!-- SAHIFA 1: ASOSIY BOSHQARUV PANELI (DASHBOARD) -->
+    <section id="tab-dashboard" class="app-tab-page active">
+      <!-- Moliyaviy umumiy ko'rsatkichlar (3 ta karta) -->
+      <div class="budget-overview-grid">
+        <!-- 1. Oila budjeti va jami kirim -->
+        <div class="summary-card budget-card">
+          <div class="summary-card-header">
+            <span class="summary-card-label">Oila budjeti (+Kirim)</span>
+            <button type="button" class="btn-quick-income" id="btnQuickIncome">
+              + Kirim
+            </button>
+          </div>
+          <div class="summary-card-value" id="budgetAmount">0 so‘m</div>
+          <div class="summary-card-footer" id="budgetIncomeSub">Oylik reja va kirimlar</div>
+        </div>
+
+        <!-- 2. Jami chiqim (Xarajat) -->
+        <div class="summary-card expense-card">
+          <div class="summary-card-header">
+            <span class="summary-card-label">Jami xarajat</span>
+            <span class="badge-count" id="totalCount">0 ta</span>
+          </div>
+          <div class="summary-card-value text-danger" id="totalAmount">0 so‘m</div>
+          <div class="summary-card-footer">Shu oydagi sarf</div>
+        </div>
+
+        <!-- 3. Qoldiq mablag' -->
+        <div class="summary-card balance-card" id="balanceCard">
+          <div class="summary-card-header">
+            <span class="summary-card-label">Qolgan mablag‘</span>
+            <span class="badge-status" id="budgetStatusBadge">Me'yorda</span>
+          </div>
+          <div class="summary-card-value" id="balanceAmount">0 so‘m</div>
+          <div class="summary-card-footer" id="balanceFooter">Hamyondagi qoldiq</div>
+        </div>
+      </div>
+
+      <!-- Budjet sarflanish ko'rsatkichi (Progress Bar) -->
+      <div class="budget-progress-container">
+        <div class="progress-info">
+          <span class="progress-label">Budjet sarflanishi</span>
+          <span class="progress-value" id="budgetProgressText">0% sarflandi</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="budgetProgressBar" style="width: 0%;"></div>
+        </div>
+      </div>
+
+      <!-- Kategoriyalar bo'yicha jamlanma -->
+      <div class="section-heading">
+        <h2>Kategoriyalar sarhisobi</h2>
+      </div>
+      <div class="categories-grid" id="categoriesGrid">
+        <!-- JS orqali to'ldiriladi -->
+      </div>
+
+      <!-- So'nggi xarajatlar qisqa bloki -->
+      <div class="recent-preview-card">
+        <div class="recent-header">
+          <h3>Shu oydagi so‘nggi yozuvlar</h3>
+          <button type="button" class="btn-see-all" id="btnSeeAllHistory">Barchasi →</button>
+        </div>
+        <ul class="recent-list" id="recentListPreview">
+          <!-- JS orqali to'ldiriladi -->
+        </ul>
+      </div>
+    </section>
+
+    <!-- SAHIFA 2: XARAJAT YOKI KIRIM QO'SHISH (ADD PAGE) -->
+    <section id="tab-add" class="app-tab-page">
+      <div class="form-page-card">
+        
+        <!-- Kirim / Chiqim o'zgartirish tugmalari -->
+        <div class="transaction-type-toggle">
+          <button type="button" class="type-toggle-btn active" id="typeExpenseBtn" data-type="expense">
+            🔴 Chiqim (Xarajat)
+          </button>
+          <button type="button" class="type-toggle-btn" id="typeIncomeBtn" data-type="income">
+            🟢 Kirim (Daromad)
+          </button>
+        </div>
+
+        <div class="form-page-header">
+          <h2 id="formPageTitle">Yangi xarajat kiritish</h2>
+          <p id="formPageSub">Oila sarf-xarajati tafsilotlarini kiriting</p>
+        </div>
+
+        <!-- Ota-onalar uchun tezkor shablon tugmalari -->
+        <div class="quick-templates" id="expenseTemplates">
+          <span class="templates-label">⚡ Tezkor shablonlar (bosing):</span>
+          <div class="template-chips">
+            <button type="button" class="template-chip" data-title="Bozorlik" data-cat="Oziq-ovqat">🥩 Bozorlik</button>
+            <button type="button" class="template-chip" data-title="Non va sut" data-cat="Oziq-ovqat">🥖 Non/Sut</button>
+            <button type="button" class="template-chip" data-title="Dorixona" data-cat="Boshqa">💊 Dorixona</button>
+            <button type="button" class="template-chip" data-title="Yo‘l kira" data-cat="Transport">🚖 Yo‘l kira</button>
+            <button type="button" class="template-chip" data-title="Kommunal to‘lov" data-cat="Kommunal">💡 Kommunal</button>
+          </div>
+        </div>
+
+        <div class="quick-templates" id="incomeTemplates" style="display: none;">
+          <span class="templates-label">⚡ Tezkor daromad turlari:</span>
+          <div class="template-chips">
+            <button type="button" class="template-chip" data-title="Oylik maosh" data-cat="Oylik maosh">💰 Oylik maosh</button>
+            <button type="button" class="template-chip" data-title="Pensiya puli" data-cat="Pensiya">👴 Pensiya</button>
+            <button type="button" class="template-chip" data-title="Qo‘shimcha daromad" data-cat="Qo‘shimcha daromad">🤝 Qo‘shimcha</button>
+            <button type="button" class="template-chip" data-title="Sovg‘a / Yordam" data-cat="Sovg‘a/Yordam">🎁 Sovg‘a</button>
+          </div>
+        </div>
+
+        <form id="expenseForm" class="mobile-expense-form" novalidate>
+          <!-- Yashirin tur: expense yoki income -->
+          <input type="hidden" id="entryType" value="expense">
+
+          <!-- Summa kiritish maydoni -->
+          <div class="form-group amount-group">
+            <label for="expenseAmount" id="amountLabel">Summasi</label>
+            <div class="input-currency-wrapper">
+              <input 
+                type="number" 
+                id="expenseAmount" 
+                class="form-control amount-input" 
+                placeholder="0" 
+                min="1" 
+                step="1000"
+                required
+              >
+              <span class="currency-tag">so‘m</span>
+            </div>
+          </div>
+
+          <!-- Nomi -->
+          <div class="form-group">
+            <label for="expenseTitle" id="titleLabel">Xarajat nomi yoki maqsadi</label>
+            <input 
+              type="text" 
+              id="expenseTitle" 
+              class="form-control" 
+              placeholder="Masalan: Bozorlik, Go'sht, Dorilar..." 
+              autocomplete="off"
+              required
+            >
+          </div>
+
+          <!-- Kategoriya -->
+          <div class="form-group">
+            <label for="expenseCategory">Kategoriya</label>
+            <select id="expenseCategory" class="form-control select-control" required>
+              <!-- JS orqali to'ldiriladi -->
+            </select>
+          </div>
+
+          <!-- Sana (ixtiyoriy, standart bugungi sana) -->
+          <div class="form-group">
+            <label for="expenseDate">Sanasi</label>
+            <input 
+              type="date" 
+              id="expenseDate" 
+              class="form-control"
+              required
+            >
+          </div>
+
+          <!-- Saqlash tugmasi -->
+          <button type="submit" class="btn-primary-large" id="submitBtn">
+            <span id="submitBtnText">+ Xarajatni saqlash</span>
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- SAHIFA 3: XARAJATLAR TARIXI VA RO'YXATI (HISTORY) -->
+    <section id="tab-history" class="app-tab-page">
+      <div class="history-page-card">
+        <div class="history-page-header">
+          <div>
+            <h2>Tarix va Ro‘yxat</h2>
+            <span class="history-sub" id="historySubText">Sentabr 2026: 0 ta yozuv</span>
+          </div>
+          <button type="button" id="clearAllBtn" class="btn-clear-all" style="display: none;">
+            Tozalash
+          </button>
+        </div>
+
+        <!-- Filtr teglari -->
+        <div class="category-filters" id="categoryFilters">
+          <button type="button" class="filter-chip active" data-filter="all">Barchasi</button>
+          <button type="button" class="filter-chip filter-expense" data-filter="only-expenses">🔴 Chiqimlar</button>
+          <button type="button" class="filter-chip filter-income" data-filter="only-incomes">🟢 Kirimlar</button>
+          <button type="button" class="filter-chip" data-filter="cat-Oziq-ovqat">Oziq-ovqat</button>
+          <button type="button" class="filter-chip" data-filter="cat-Ta'lim">Ta'lim</button>
+          <button type="button" class="filter-chip" data-filter="cat-Transport">Transport</button>
+          <button type="button" class="filter-chip" data-filter="cat-Kommunal">Kommunal</button>
+          <button type="button" class="filter-chip" data-filter="cat-Kredit/Qarz">Kredit/Qarz</button>
+          <button type="button" class="filter-chip" data-filter="cat-Boshqa">Boshqa</button>
+        </div>
+
+        <!-- To'liq ro'yxat -->
+        <ul class="expense-list" id="expenseList">
+          <!-- Dinamik xarajatlar va kirimlar ro'yxati -->
+        </ul>
+
+        <!-- Bo'sh holat xabari -->
+        <div id="emptyState" class="empty-state">
+          <div class="empty-state-icon">📋</div>
+          <p id="emptyStateText">Ushbu oy uchun hali yozuvlar kiritilmagan.</p>
+          <button type="button" class="btn-add-shortcut" id="btnShortcutAdd">
+            + Yangi yozuv qo‘shish
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /app-container -->
+
+  <!-- EKRAN PASTIDAGI MOBIL APP NAVIGATSIYA PANELI (BOTTOM NAV BAR) -->
+  <nav class="mobile-bottom-nav" aria-label="Mobil navigatsiya">
+    <!-- 1-Tugma: Asosiy -->
+    <button type="button" class="nav-item active" data-tab="dashboard">
+      <div class="nav-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+      </div>
+      <span class="nav-text">Asosiy</span>
+    </button>
+
+    <!-- 2-Tugma: Qo'shish (Markaziy ajralib turuvchi tugma) -->
+    <button type="button" class="nav-item nav-item-center" data-tab="add" aria-label="Yozuv qo'shish">
+      <div class="center-btn-bubble">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+      </div>
+      <span class="nav-text">Qo‘shish</span>
+    </button>
+
+    <!-- 3-Tugma: Tarix -->
+    <button type="button" class="nav-item" data-tab="history">
+      <div class="nav-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="8" y1="6" x2="21" y2="6"></line>
+          <line x1="8" y1="12" x2="21" y2="12"></line>
+          <line x1="8" y1="18" x2="21" y2="18"></line>
+          <line x1="3" y1="6" x2="3.01" y2="6"></line>
+          <line x1="3" y1="12" x2="3.01" y2="12"></line>
+          <line x1="3" y1="18" x2="3.01" y2="18"></line>
+        </svg>
+      </div>
+      <span class="nav-text">Tarix</span>
+    </button>
+  </nav>
+
+  <!-- OILA ASOSIY BUDJETINI BELGILASH MODAL OYNASI -->
+  <dialog id="budgetModal" class="budget-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Asosiy oylik budjetni belgilash</h3>
+        <button type="button" id="closeBudgetModalBtn" class="btn-modal-close" aria-label="Yopish">&times;</button>
+      </div>
+      <form id="budgetForm" class="modal-form">
+        <div class="form-group">
+          <label for="budgetInput">Oylik boshlang‘ich budjet (so‘mda)</label>
+          <input 
+            type="number" 
+            id="budgetInput" 
+            class="form-control" 
+            placeholder="Masalan: 5000000" 
+            min="0" 
+            step="50000"
+            required
+          >
+          <small style="color: var(--text-muted); margin-top: 6px; display: block; font-size: 0.8rem;">
+            Oila uchun rejalashtirilgan oylik umumiy reja. Qo‘shimcha kirimlar ushbu budjet ustiga qo‘shilib boradi.
+          </small>
+        </div>
+        <div class="modal-actions">
+          <button type="button" id="cancelBudgetBtn" class="btn-cancel">Bekor qilish</button>
+          <button type="submit" class="btn-submit">Saqlash</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- Toast xabarnomasi -->
+  <div id="toastNotification" class="toast-message">
+    Muvaffaqiyatli saqlandi!
+  </div>
+
+  <!-- ASOSIY JAVASCRIPT KODI -->
+  <script src="app.js"></script>
+</body>
+</html>
